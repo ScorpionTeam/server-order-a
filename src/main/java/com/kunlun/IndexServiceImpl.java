@@ -39,6 +39,7 @@ public class IndexServiceImpl implements IndexService {
         return BaseResult.success(list);
     }
 
+
     public BaseResult fallback() {
         return BaseResult.error("error","Server1 Down");
     }

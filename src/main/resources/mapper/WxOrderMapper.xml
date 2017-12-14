@@ -45,6 +45,6 @@
         operate_point,
         use_point
         FROM t_order
-        WHERE userId=#{user_id}
+        WHERE user_id=#{userId}
     </select>
 </mapper>

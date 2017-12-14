@@ -1,5 +1,6 @@
 package com.kunlun.order;
 
+import com.kunlun.entity.Order;
 import com.kunlun.result.BaseResult;
 import com.kunlun.result.PageResult;
 
@@ -19,4 +20,12 @@ public interface WxOrderService {
      * @return
      */
     PageResult findByUserId(int pageNo, int pageSize, String wxCode, String orderStatus);
+
+    /**
+     * 退款
+     *
+     * @param order
+     * @return
+     */
+    BaseResult refund(Order order);
 }

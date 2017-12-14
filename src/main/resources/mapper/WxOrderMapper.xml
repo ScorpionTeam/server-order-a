@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kunlun.order.WxOrderMapper">
+    <!--查询我的订单列表-->
     <select id="findByUserId" resultType="com.kunlun.entity.Order">
         SELECT id,
         seller_id,
@@ -47,4 +48,9 @@
         FROM t_order
         WHERE user_id=#{userId}
     </select>
+
+    <!--退款-->
+    <update id="refund" parameterType="com.kunlun.entity.Order">
+        UPDATE t_order SET order_status='REFUND' WHERE id=#{id}
+    </update>
 </mapper>

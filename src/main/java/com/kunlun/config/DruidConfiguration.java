@@ -54,21 +54,8 @@ public class DruidConfiguration implements EnvironmentAware {
                 Boolean.valueOf(relaxedPropertyResolver.getProperty("poolPreparedStatements")));
         dataSource.setMaxPoolPreparedStatementPerConnectionSize(
                 Integer.valueOf(relaxedPropertyResolver.getProperty("maxPoolPreparedStatementPerConnectionSize")));
-//        try {
-//            dataSource.setFilters(relaxedPropertyResolver.getProperty("filters"));
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
         return dataSource;
     }
 
-//    @Bean
-//    public FilterRegistrationBean filterRegistrationBean() {
-//        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
-//        filterRegistrationBean.setFilter(new WebStatFilter());
-//        filterRegistrationBean.addUrlPatterns("/*");
-//        filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
-//        return filterRegistrationBean;
-//    }
 
 }

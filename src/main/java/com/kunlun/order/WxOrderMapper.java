@@ -29,4 +29,12 @@ public interface WxOrderMapper {
      * @return
      */
     int refund(Order order);
+
+    /**
+     * 查询订单详情
+     *
+     * @param orderId
+     * @return
+     */
+    Order findByOrderId(@Param("orderId") Long orderId);
 }

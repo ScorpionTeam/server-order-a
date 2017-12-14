@@ -44,4 +44,14 @@ public class WxOrderController {
     public BaseResult refund(@RequestBody Order order) {
         return wxOrderService.refund(order);
     }
+
+    /**
+     * 查询订单详情
+     * @param orderId
+     * @return
+     */
+    @GetMapping("/findByOrderId/{orderId}")
+    public BaseResult findByOrderId(@PathVariable Long orderId) {
+        return wxOrderService.findByOrderId(orderId);
+    }
 }

@@ -28,4 +28,12 @@ public interface WxOrderService {
      * @return
      */
     BaseResult refund(Order order);
+
+    /**
+     * 查询订单详情
+     *
+     * @param orderId
+     * @return
+     */
+    BaseResult findByOrderId(Long orderId);
 }

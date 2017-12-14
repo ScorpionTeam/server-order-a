@@ -1,5 +1,6 @@
 package com.kunlun.order;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.util.StringUtil;
@@ -44,11 +45,12 @@ public class WxOrderServiceImpl implements WxOrderService {
     /**
      * 退款
      *
-     * @param order
+     * @param object
      * @return
      */
     @Override
-    public BaseResult refund(Order order) {
+    public BaseResult refund(JSONObject object) {
+        Order order = JSONObject.toJavaObject(object, Order.class);
         if (StringUtil.isEmpty(order.toString())) {
             return BaseResult.notFound();
         }
@@ -71,7 +73,7 @@ public class WxOrderServiceImpl implements WxOrderService {
             return BaseResult.parameterError();
         }
         Order order = wxOrderMapper.findByOrderId(orderId);
-        if(order == null) {
+        if (order == null) {
             return BaseResult.error("ERROR", "没找到此订单");
         }
         return BaseResult.success("成功找到订单");

@@ -1,5 +1,6 @@
 package com.kunlun.order;
 
+import com.alibaba.fastjson.JSONObject;
 import com.kunlun.entity.Order;
 import com.kunlun.result.BaseResult;
 import com.kunlun.result.PageResult;
@@ -24,10 +25,10 @@ public interface WxOrderService {
     /**
      * 退款
      *
-     * @param order
+     * @param object
      * @return
      */
-    BaseResult refund(Order order);
+    BaseResult refund(JSONObject object);
 
     /**
      * 查询订单详情

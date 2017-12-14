@@ -1,5 +1,6 @@
 package com.kunlun.order;
 
+import com.alibaba.fastjson.JSONObject;
 import com.kunlun.entity.Order;
 import com.kunlun.result.BaseResult;
 import com.kunlun.result.PageResult;
@@ -37,12 +38,12 @@ public class WxOrderController {
     /**
      * 退款
      *
-     * @param order
+     * @param object
      * @return
      */
     @PostMapping("/refund")
-    public BaseResult refund(@RequestBody Order order) {
-        return wxOrderService.refund(order);
+    public BaseResult refund(@RequestBody JSONObject object) {
+        return wxOrderService.refund(object);
     }
 
     /**

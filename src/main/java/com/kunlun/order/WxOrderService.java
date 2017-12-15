@@ -54,4 +54,13 @@ public interface WxOrderService {
      * @return
      */
     BaseResult cancelOrder(Long id, String ipAddress);
+
+    /**
+     * 确认收货
+     *
+     * @param id
+     * @param ipAddress
+     * @return
+     */
+    BaseResult confirmReceipt(Long id, String ipAddress);
 }

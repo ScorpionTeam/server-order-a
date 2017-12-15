@@ -129,4 +129,38 @@ public class WxOrderServiceImpl implements WxOrderService {
         }
         return BaseResult.success("订单成功");
     }
+
+    /**
+     * 确认收货
+     *
+     * @param id
+     * @param ipAddress
+     * @return
+     */
+    @Override
+    public BaseResult confirmReceipt(Long id, String ipAddress) {
+        if (StringUtil.isEmpty(id.toString())) {
+            return BaseResult.parameterError();
+        }
+        Order order = wxOrderMapper.findByOrderId(id);
+        if (StringUtil.isEmpty(order.getGoodId().toString())) {
+            return BaseResult.parameterError();
+        }
+        //判断该订单状态
+        if (!order.getOrderStatus().equals(CommonEnum.UN_RECEIVE.getCode())) {
+            return BaseResult.error("ERROR", "订单状态异常");
+        }
+        int result = wxOrderMapper.updateOrderStatus(id, CommonEnum.DONE.getCode());
+        if (result > 0) {
+            //TODO 保存订单日志
+            /*int save = wxOrderLogMapper.saveConfirmReceiptLog(order.getOrderNo(), ipAddress, order.getId());
+            if (save < 0) {
+                return BaseResult.error("ERROR", "保存订单日志失败");
+            }*/
+            return BaseResult.success("确认收货成功");
+        }
+
+        return BaseResult.error("ERROR", "确认收货失败");
+    }
+
 }

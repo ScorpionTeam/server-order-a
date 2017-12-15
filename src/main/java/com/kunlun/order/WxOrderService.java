@@ -37,4 +37,12 @@ public interface WxOrderService {
      * @return
      */
     BaseResult findByOrderId(Long orderId);
+
+    /**
+     * 签收后评价
+     *
+     * @param object
+     * @return
+     */
+    BaseResult estimate(JSONObject object);
 }

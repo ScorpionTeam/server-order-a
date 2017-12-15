@@ -38,7 +38,7 @@ public class WxOrderController {
     /**
      * 退款
      *
-     * @param object
+     * @param object 订单
      * @return
      */
     @PostMapping("/refund")
@@ -48,11 +48,23 @@ public class WxOrderController {
 
     /**
      * 查询订单详情
-     * @param orderId
+     *
+     * @param orderId 订单id
      * @return
      */
     @GetMapping("/findByOrderId/{orderId}")
     public BaseResult findByOrderId(@PathVariable Long orderId) {
         return wxOrderService.findByOrderId(orderId);
+    }
+
+    /**
+     * 签收后评价
+     *
+     * @param object 订单
+     * @return
+     */
+    @PostMapping("/estimate")
+    public BaseResult estimate(@RequestBody JSONObject object) {
+        return wxOrderService.estimate(object);
     }
 }

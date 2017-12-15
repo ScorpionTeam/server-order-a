@@ -4,11 +4,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.util.StringUtil;
+import com.kunlun.entity.Estimate;
 import com.kunlun.entity.Order;
 import com.kunlun.entity.OrderExt;
 import com.kunlun.enums.CommonEnum;
 import com.kunlun.result.BaseResult;
 import com.kunlun.result.PageResult;
+import com.kunlun.wxentity.wxUtils.WxUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -77,5 +79,29 @@ public class WxOrderServiceImpl implements WxOrderService {
             return BaseResult.error("ERROR", "没找到此订单");
         }
         return BaseResult.success("成功找到订单");
+    }
+
+    /**
+     * 签收后评价
+     *
+     * @param object
+     * @return
+     */
+    @Override
+    public BaseResult estimate(JSONObject object) {
+        Estimate estimate = JSONObject.toJavaObject(object ,Estimate.class);
+        //String userId = WxUtil.getOpenId(estimate.getWxCode());
+        if(StringUtil.isEmpty(estimate.getUserId())) {
+            return BaseResult.notFound();
+        }
+        if(StringUtil.isEmpty(estimate.getGoodId().toString())) {
+            return BaseResult.notFound();
+        }
+        estimate.setUserId(estimate.getUserId());
+        int result = wxOrderMapper.estimate(estimate);
+        if(result < 0) {
+            return BaseResult.error("ERROR", "评价不成功");
+        }
+        return BaseResult.success("评价成功");
     }
 }

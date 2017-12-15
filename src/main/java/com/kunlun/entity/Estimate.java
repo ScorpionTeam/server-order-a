@@ -37,6 +37,12 @@ public class Estimate implements Serializable {
     private String userId;
 
     /**
+     * 微信Code
+     */
+    @JSONField(name = "wx_code")
+    private String wxCode;
+
+    /**
      * 创建时间
      */
     @JSONField(name = "create_date", format = "yyyy-MM-dd HH:mm:ss")
@@ -127,6 +133,14 @@ public class Estimate implements Serializable {
         this.nickName = nickName;
     }
 
+    public String getWxCode() {
+        return wxCode;
+    }
+
+    public void setWxCode(String wxCode) {
+        this.wxCode = wxCode;
+    }
+
     @Override
     public String toString() {
         return "Estimate{" +
@@ -134,6 +148,7 @@ public class Estimate implements Serializable {
                 ", goodId=" + goodId +
                 ", message='" + message + '\'' +
                 ", userId='" + userId + '\'' +
+                ", wxCode='" + wxCode + '\'' +
                 ", createDate=" + createDate +
                 ", updateDate=" + updateDate +
                 ", complain='" + complain + '\'' +

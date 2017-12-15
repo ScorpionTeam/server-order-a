@@ -1,6 +1,8 @@
 package com.kunlun.order;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
+import com.kunlun.entity.Estimate;
 import com.kunlun.entity.Order;
 import com.kunlun.entity.OrderExt;
 import org.apache.ibatis.annotations.Mapper;
@@ -37,4 +39,12 @@ public interface WxOrderMapper {
      * @return
      */
     Order findByOrderId(@Param("orderId") Long orderId);
+
+    /**
+     * 签收后评价
+     *
+     * @param estimate
+     * @return
+     */
+    int estimate(Estimate estimate);
 }

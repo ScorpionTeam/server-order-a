@@ -99,4 +99,22 @@
         FROM t_order
         WHERE id=#{orderId}
     </select>
+
+    <!--签收后评价-->
+    <insert id="estimate" parameterType="com.kunlun.entity.Estimate">
+        INSERT INTO t_estimate(
+        good_id,
+        message,
+        user_id,
+        create_date,
+        update_date
+        ) VALUES (
+        #{goodId},
+        #{message},
+        #{userId},
+        now(),
+        now()
+        )
+
+    </insert>
 </mapper>

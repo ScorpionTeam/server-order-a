@@ -35,12 +35,12 @@ public class WxOrderServiceImpl implements WxOrderService {
      */
     @Override
     public PageResult findByUserId(int pageNo, int pageSize, String wxCode, String orderStatus) {
-        //String userId = WxUtil.getOpenId(wxCode);
+        String userId = WxUtil.getOpenId(wxCode);
         PageHelper.startPage(pageNo, pageSize);
         if (CommonEnum.ALL.getCode().equals(orderStatus)) {
             orderStatus = null;
         }
-        Page<OrderExt> page = wxOrderMapper.findByUserId(wxCode, orderStatus);
+        Page<OrderExt> page = wxOrderMapper.findByUserId(userId, orderStatus);
         return new PageResult(page);
     }
 
@@ -90,14 +90,14 @@ public class WxOrderServiceImpl implements WxOrderService {
     @Override
     public BaseResult estimate(JSONObject object) {
         Estimate estimate = JSONObject.toJavaObject(object, Estimate.class);
-        //String userId = WxUtil.getOpenId(estimate.getWxCode());
-        if (StringUtil.isEmpty(estimate.getUserId())) {
+        String userId = WxUtil.getOpenId(estimate.getWxCode());
+        if (StringUtil.isEmpty(userId)) {
             return BaseResult.notFound();
         }
         if (StringUtil.isEmpty(estimate.getGoodId().toString())) {
             return BaseResult.notFound();
         }
-        estimate.setUserId(estimate.getUserId());
+        estimate.setUserId(userId);
         int result = wxOrderMapper.estimate(estimate);
         if (result < 0) {
             return BaseResult.error("ERROR", "评价不成功");

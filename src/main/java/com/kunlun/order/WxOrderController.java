@@ -4,8 +4,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.kunlun.entity.Order;
 import com.kunlun.result.BaseResult;
 import com.kunlun.result.PageResult;
+import com.kunlun.utils.IpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author by fk
@@ -66,5 +69,18 @@ public class WxOrderController {
     @PostMapping("/estimate")
     public BaseResult estimate(@RequestBody JSONObject object) {
         return wxOrderService.estimate(object);
+    }
+
+    /**
+     * 取消订单
+     *
+     * @param id      订单id
+     * @param request 请求
+     * @return
+     */
+    @GetMapping("/cancelOrder/{id}")
+    public BaseResult cancelOrder(@PathVariable Long id, HttpServletRequest request) {
+        String ipAddress = IpUtil.getIPAddress(request);
+        return wxOrderService.cancelOrder(id, ipAddress);
     }
 }

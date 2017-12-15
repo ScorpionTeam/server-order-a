@@ -115,6 +115,10 @@
         now(),
         now()
         )
-
     </insert>
+
+    <!--更新订单状态-->
+    <update id="updateOrderStatus" parameterType="com.kunlun.entity.Order">
+        UPDATE t_order SET order_status=#{orderStatus} WHERE id=#{id}
+    </update>
 </mapper>

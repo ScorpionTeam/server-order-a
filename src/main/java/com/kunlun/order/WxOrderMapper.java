@@ -47,4 +47,13 @@ public interface WxOrderMapper {
      * @return
      */
     int estimate(Estimate estimate);
+
+    /**
+     * 更新订单状态
+     *
+     * @param id
+     * @return
+     */
+    int updateOrderStatus(@Param("id") Long id,
+                          @Param("orderStatus") String orderStatus);
 }

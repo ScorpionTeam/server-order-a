@@ -89,19 +89,44 @@ public class WxOrderServiceImpl implements WxOrderService {
      */
     @Override
     public BaseResult estimate(JSONObject object) {
-        Estimate estimate = JSONObject.toJavaObject(object ,Estimate.class);
+        Estimate estimate = JSONObject.toJavaObject(object, Estimate.class);
         //String userId = WxUtil.getOpenId(estimate.getWxCode());
-        if(StringUtil.isEmpty(estimate.getUserId())) {
+        if (StringUtil.isEmpty(estimate.getUserId())) {
             return BaseResult.notFound();
         }
-        if(StringUtil.isEmpty(estimate.getGoodId().toString())) {
+        if (StringUtil.isEmpty(estimate.getGoodId().toString())) {
             return BaseResult.notFound();
         }
         estimate.setUserId(estimate.getUserId());
         int result = wxOrderMapper.estimate(estimate);
-        if(result < 0) {
+        if (result < 0) {
             return BaseResult.error("ERROR", "评价不成功");
         }
         return BaseResult.success("评价成功");
+    }
+
+    /**
+     * 取消订单
+     *
+     * @param id
+     * @param ipAddress
+     * @return
+     */
+    @Override
+    public BaseResult cancelOrder(Long id, String ipAddress) {
+        if (StringUtil.isEmpty(id.toString())) {
+            return BaseResult.notFound();
+        }
+        Order order = wxOrderMapper.findByOrderId(id);
+        //订单已完成状态
+        if (order.getOrderStatus().equals(CommonEnum.ALL_DONE.getCode())) {
+            return BaseResult.error("ERROR", "订单已完成,不能取消订单");
+        }
+        //修改订单的状态
+        int result = wxOrderMapper.updateOrderStatus(id, CommonEnum.CLOSING.getCode());
+        if (result < 0) {
+            return BaseResult.error("ERROR", "取消订单失败,请重试");
+        }
+        return BaseResult.success("订单成功");
     }
 }

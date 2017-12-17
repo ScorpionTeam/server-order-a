@@ -27,20 +27,20 @@ public class WxOrderServiceImpl implements WxOrderService {
     /**
      * 查询我的订单列表
      *
-     * @param pageNo
-     * @param pageSize
-     * @param wxCode
-     * @param orderStatus
+     * @param object
      * @return
      */
     @Override
-    public PageResult findByUserId(int pageNo, int pageSize, String wxCode, String orderStatus) {
-        String userId = WxUtil.getOpenId(wxCode);
-        PageHelper.startPage(pageNo, pageSize);
+    public PageResult findByWxCode(JSONObject object) {
+        OrderExt orderExt = object.toJavaObject(OrderExt.class);
+//        String userId = WxUtil.getOpenId(orderExt.getWxCode());
+        PageHelper.startPage(orderExt.getPageNo(), orderExt.getPageSize());
+        String orderStatus = orderExt.getOrderStatus();
+        //所有订单
         if (CommonEnum.ALL.getCode().equals(orderStatus)) {
             orderStatus = null;
         }
-        Page<OrderExt> page = wxOrderMapper.findByUserId(userId, orderStatus);
+        Page<OrderExt> page = wxOrderMapper.findByWxCode(orderExt.getWxCode(), orderStatus);
         return new PageResult(page);
     }
 
@@ -64,7 +64,7 @@ public class WxOrderServiceImpl implements WxOrderService {
     }
 
     /**
-     * 查询订单详情
+     * 查询我的订单详情
      *
      * @param orderId
      * @return

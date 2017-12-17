@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kunlun.order.WxOrderMapper">
     <!--查询我的订单列表-->
-    <select id="findByUserId" resultType="com.kunlun.entity.Order">
+    <select id="findByWxCode" resultType="com.kunlun.entity.OrderExt">
         SELECT id,
         seller_id,
         user_id,
@@ -47,6 +47,9 @@
         use_point
         FROM t_order
         WHERE user_id=#{userId}
+        <if test="orderStatus!=null">
+            AND order_status=#{orderStatus}
+        </if>
     </select>
 
     <!--退款-->
@@ -118,7 +121,7 @@
     </insert>
 
     <!--更新订单状态-->
-    <update id="updateOrderStatus" parameterType="com.kunlun.entity.Order">
+    <update id="cancelOrder" parameterType="com.kunlun.entity.Order">
         UPDATE t_order SET order_status=#{orderStatus} WHERE id=#{id}
     </update>
 </mapper>

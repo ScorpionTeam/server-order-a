@@ -24,18 +24,12 @@ public class WxOrderController {
     /**
      * 查询我的订单列表
      *
-     * @param pageNo      当前页
-     * @param pageSize    当前页数
-     * @param wxCode      微信Code
-     * @param orderStatus 订单状态
+     * @param object
      * @return
      */
-    @GetMapping("/findByUserId/{pageNo}/{pageSize}/{wxCode}/{orderStatus}")
-    public PageResult findByUserId(@PathVariable int pageNo,
-                                   @PathVariable int pageSize,
-                                   @PathVariable String wxCode,
-                                   @PathVariable String orderStatus) {
-        return wxOrderService.findByUserId(pageNo, pageSize, wxCode, orderStatus);
+    @PostMapping("/findByWxCode")
+    public PageResult findByWxCode(@RequestBody JSONObject object) {
+        return wxOrderService.findByWxCode(object);
     }
 
     /**
@@ -50,7 +44,7 @@ public class WxOrderController {
     }
 
     /**
-     * 查询订单详情
+     * 查询我的订单详情
      *
      * @param orderId 订单id
      * @return

@@ -22,7 +22,7 @@ public interface WxOrderMapper {
      * @param orderStatus
      * @return
      */
-    Page<OrderExt> findByUserId(@Param("userId") String userId, @Param("orderStatus") String orderStatus);
+    Page<OrderExt> findByWxCode(@Param("userId") String userId, @Param("orderStatus") String orderStatus);
 
     /**
      * 退款
@@ -33,7 +33,7 @@ public interface WxOrderMapper {
     int refund(Order order);
 
     /**
-     * 查询订单详情
+     * 查询我的订单详情
      *
      * @param orderId
      * @return

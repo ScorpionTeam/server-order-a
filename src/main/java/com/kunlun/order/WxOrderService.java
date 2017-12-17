@@ -14,13 +14,10 @@ public interface WxOrderService {
     /**
      * 查询我的订单列表
      *
-     * @param pageNo
-     * @param pageSize
-     * @param wxCode
-     * @param orderStatus
+     * @param object
      * @return
      */
-    PageResult findByUserId(int pageNo, int pageSize, String wxCode, String orderStatus);
+    PageResult findByWxCode(JSONObject object);
 
     /**
      * 退款
@@ -31,7 +28,7 @@ public interface WxOrderService {
     BaseResult refund(JSONObject object);
 
     /**
-     * 查询订单详情
+     * 查询我的订单详情
      *
      * @param orderId
      * @return

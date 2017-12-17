@@ -9,6 +9,15 @@ import com.alibaba.fastjson.annotation.JSONField;
 public class OrderExt extends Order {
 
     /**
+     * 页码
+     */
+    private Integer pageNo;
+    /**
+     * 数量
+     */
+    private Integer pageSize;
+
+    /**
      * IP地址
      */
     @JSONField(name = "ip_address")
@@ -36,6 +45,7 @@ public class OrderExt extends Order {
      */
     @JSONField(name = "good_main_image")
     private String goodMainImage;
+
     /**
      * 快递公司名称
      */
@@ -47,6 +57,7 @@ public class OrderExt extends Order {
      */
     @JSONField(name = "wx_code")
     private String wxCode;
+
     /**
      * 商品编号
      */
@@ -132,10 +143,29 @@ public class OrderExt extends Order {
         this.activityGoodId = activityGoodId;
     }
 
+
+    public Integer getPageNo() {
+        return pageNo;
+    }
+
+    public void setPageNo(Integer pageNo) {
+        this.pageNo = pageNo;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
     @Override
     public String toString() {
         return "OrderExt{" +
-                "ipAddress='" + ipAddress + '\'' +
+                "pageNo=" + pageNo +
+                ", pageSize=" + pageSize +
+                ", ipAddress='" + ipAddress + '\'' +
                 ", openCode='" + openCode + '\'' +
                 ", sendGood=" + sendGood +
                 ", delivery=" + delivery +

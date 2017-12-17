@@ -56,7 +56,7 @@ public class WxOrderServiceImpl implements WxOrderService {
         if (StringUtil.isEmpty(order.toString())) {
             return BaseResult.notFound();
         }
-        int result = wxOrderMapper.refund(order);
+        int result = wxOrderMapper.refund(order.getId());
         if (result < 0) {
             return BaseResult.error("ERROR", "退款申请失败");
         }

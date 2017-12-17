@@ -27,10 +27,10 @@ public interface WxOrderMapper {
     /**
      * 退款
      *
-     * @param order
+     * @param id
      * @return
      */
-    int refund(Order order);
+    int refund(Long id);
 
     /**
      * 查询我的订单详情

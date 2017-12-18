@@ -56,4 +56,11 @@ public interface WxOrderMapper {
      */
     int updateOrderStatus(@Param("id") Long id,
                           @Param("orderStatus") String orderStatus);
+
+    /**
+     * 更新退款时间
+     *
+     * @param id
+     */
+    void refundDate(Long id);
 }

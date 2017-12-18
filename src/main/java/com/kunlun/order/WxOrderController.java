@@ -22,7 +22,7 @@ public class WxOrderController {
     private WxOrderService wxOrderService;
 
     /**
-     * 查询我的订单列表
+     * 查询我的订单列表/ 按条件orderStatus
      *
      * @param object
      * @return

@@ -61,6 +61,8 @@ public class WxOrderServiceImpl implements WxOrderService {
         if (result < 0) {
             return BaseResult.error("ERROR", "退款申请失败");
         }
+        //更新申请退款的时间
+        wxOrderMapper.refundDate(order.getId());
         return BaseResult.success("退款申请成功");
     }
 

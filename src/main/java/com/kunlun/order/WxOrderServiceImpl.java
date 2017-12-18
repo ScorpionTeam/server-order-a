@@ -11,6 +11,7 @@ import com.kunlun.enums.CommonEnum;
 import com.kunlun.result.BaseResult;
 import com.kunlun.result.PageResult;
 import com.kunlun.wxentity.wxUtils.WxUtil;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -91,14 +92,14 @@ public class WxOrderServiceImpl implements WxOrderService {
     @Override
     public BaseResult estimate(JSONObject object) {
         Estimate estimate = JSONObject.toJavaObject(object, Estimate.class);
-//        String userId = WxUtil.getOpenId(estimate.getWxCode());
-        if (StringUtil.isEmpty(estimate.getWxCode())) {
+        String userId = WxUtil.getOpenId(estimate.getWxCode());
+        if (StringUtil.isEmpty(userId)) {
             return BaseResult.notFound();
         }
         if (StringUtil.isEmpty(estimate.getGoodId().toString())) {
             return BaseResult.notFound();
         }
-        estimate.setUserId(estimate.getWxCode());
+        estimate.setUserId(userId);
         int result = wxOrderMapper.estimate(estimate);
         if (result < 0) {
             return BaseResult.error("ERROR", "评价不成功");

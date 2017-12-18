@@ -91,14 +91,14 @@ public class WxOrderServiceImpl implements WxOrderService {
     @Override
     public BaseResult estimate(JSONObject object) {
         Estimate estimate = JSONObject.toJavaObject(object, Estimate.class);
-        String userId = WxUtil.getOpenId(estimate.getWxCode());
-        if (StringUtil.isEmpty(userId)) {
+//        String userId = WxUtil.getOpenId(estimate.getWxCode());
+        if (StringUtil.isEmpty(estimate.getWxCode())) {
             return BaseResult.notFound();
         }
         if (StringUtil.isEmpty(estimate.getGoodId().toString())) {
             return BaseResult.notFound();
         }
-        estimate.setUserId(userId);
+        estimate.setUserId(estimate.getWxCode());
         int result = wxOrderMapper.estimate(estimate);
         if (result < 0) {
             return BaseResult.error("ERROR", "评价不成功");

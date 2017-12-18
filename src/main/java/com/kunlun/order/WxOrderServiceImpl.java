@@ -33,14 +33,14 @@ public class WxOrderServiceImpl implements WxOrderService {
     @Override
     public PageResult findByWxCode(JSONObject object) {
         OrderExt orderExt = object.toJavaObject(OrderExt.class);
-//        String userId = WxUtil.getOpenId(orderExt.getWxCode());
+        String userId = WxUtil.getOpenId(orderExt.getWxCode());
         PageHelper.startPage(orderExt.getPageNo(), orderExt.getPageSize());
         String orderStatus = orderExt.getOrderStatus();
         //所有订单
         if (CommonEnum.ALL.getCode().equals(orderStatus)) {
             orderStatus = null;
         }
-        Page<OrderExt> page = wxOrderMapper.findByWxCode(orderExt.getWxCode(), orderStatus);
+        Page<OrderExt> page = wxOrderMapper.findByWxCode(userId, orderStatus);
         return new PageResult(page);
     }
 

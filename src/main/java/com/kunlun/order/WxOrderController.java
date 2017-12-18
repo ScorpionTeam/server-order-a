@@ -81,13 +81,13 @@ public class WxOrderController {
     /**
      * 确认收货
      *
-     * @param id      订单id
+     * @param object  订单
      * @param request 请求
      * @return
      */
-    @GetMapping("/confirmReceipt/{id}")
-    public BaseResult confirmReceipt(@PathVariable Long id, HttpServletRequest request) {
+    @PostMapping("/confirmByGood")
+    public BaseResult confirmByGood(@RequestBody JSONObject object, HttpServletRequest request) {
         String ipAddress = IpUtil.getIPAddress(request);
-        return wxOrderService.confirmReceipt(id, ipAddress);
+        return wxOrderService.confirmByGood(object, ipAddress);
     }
 }

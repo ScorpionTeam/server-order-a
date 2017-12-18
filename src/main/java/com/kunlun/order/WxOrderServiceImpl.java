@@ -135,16 +135,17 @@ public class WxOrderServiceImpl implements WxOrderService {
     /**
      * 确认收货
      *
-     * @param id
+     * @param object
      * @param ipAddress
      * @return
      */
     @Override
-    public BaseResult confirmReceipt(Long id, String ipAddress) {
-        if (StringUtil.isEmpty(id.toString())) {
+    public BaseResult confirmByGood(JSONObject object, String ipAddress) {
+        OrderExt orderExt = JSONObject.toJavaObject(object, OrderExt.class);
+        if (StringUtil.isEmpty(orderExt.getId().toString())) {
             return BaseResult.parameterError();
         }
-        Order order = wxOrderMapper.findByOrderId(id);
+        Order order = wxOrderMapper.findByOrderId(orderExt.getId());
         if (StringUtil.isEmpty(order.getGoodId().toString())) {
             return BaseResult.parameterError();
         }
@@ -152,7 +153,7 @@ public class WxOrderServiceImpl implements WxOrderService {
         if (!order.getOrderStatus().equals(CommonEnum.UN_RECEIVE.getCode())) {
             return BaseResult.error("ERROR", "订单状态异常");
         }
-        int result = wxOrderMapper.updateOrderStatus(id, CommonEnum.DONE.getCode());
+        int result = wxOrderMapper.updateOrderStatus(orderExt.getId(), CommonEnum.DONE.getCode());
         if (result > 0) {
             //TODO 保存订单日志
             /*int save = wxOrderLogMapper.saveConfirmReceiptLog(order.getOrderNo(), ipAddress, order.getId());

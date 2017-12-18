@@ -55,9 +55,9 @@ public interface WxOrderService {
     /**
      * 确认收货
      *
-     * @param id
+     * @param object
      * @param ipAddress
      * @return
      */
-    BaseResult confirmReceipt(Long id, String ipAddress);
+    BaseResult confirmByGood(JSONObject object, String ipAddress);
 }

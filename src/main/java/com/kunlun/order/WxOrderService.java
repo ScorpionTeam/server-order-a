@@ -46,11 +46,11 @@ public interface WxOrderService {
     /**
      * 取消订单
      *
-     * @param id
+     * @param object
      * @param ipAddress
      * @return
      */
-    BaseResult cancelOrder(Long id, String ipAddress);
+    BaseResult cancelOrder(JSONObject object, String ipAddress);
 
     /**
      * 确认收货

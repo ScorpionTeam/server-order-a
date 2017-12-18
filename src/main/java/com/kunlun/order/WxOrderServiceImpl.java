@@ -109,26 +109,27 @@ public class WxOrderServiceImpl implements WxOrderService {
     /**
      * 取消订单
      *
-     * @param id
+     * @param object
      * @param ipAddress
      * @return
      */
     @Override
-    public BaseResult cancelOrder(Long id, String ipAddress) {
-        if (StringUtil.isEmpty(id.toString())) {
+    public BaseResult cancelOrder(JSONObject object, String ipAddress) {
+        OrderExt orderExt = JSONObject.toJavaObject(object, OrderExt.class);
+        if (StringUtil.isEmpty(orderExt.getId().toString())) {
             return BaseResult.notFound();
         }
-        Order order = wxOrderMapper.findByOrderId(id);
+        Order order = wxOrderMapper.findByOrderId(orderExt.getId());
         //订单已完成状态
         if (order.getOrderStatus().equals(CommonEnum.ALL_DONE.getCode())) {
             return BaseResult.error("ERROR", "订单已完成,不能取消订单");
         }
         //修改订单的状态
-        int result = wxOrderMapper.updateOrderStatus(id, CommonEnum.CLOSING.getCode());
+        int result = wxOrderMapper.updateOrderStatus(orderExt.getId(), CommonEnum.CLOSING.getCode());
         if (result < 0) {
             return BaseResult.error("ERROR", "取消订单失败,请重试");
         }
-        return BaseResult.success("订单成功");
+        return BaseResult.success("取消订单成功");
     }
 
     /**

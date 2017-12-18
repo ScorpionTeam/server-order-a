@@ -46,12 +46,12 @@ public class WxOrderController {
     /**
      * 查询我的订单详情
      *
-     * @param orderId 订单id
+     * @param object 订单id
      * @return
      */
-    @GetMapping("/findByOrderId/{orderId}")
-    public BaseResult findByOrderId(@PathVariable Long orderId) {
-        return wxOrderService.findByOrderId(orderId);
+    @PostMapping("/findByOrderId")
+    public BaseResult findByOrderId(@RequestBody JSONObject object) {
+        return wxOrderService.findByOrderId(object);
     }
 
     /**

@@ -66,15 +66,16 @@ public class WxOrderServiceImpl implements WxOrderService {
     /**
      * 查询我的订单详情
      *
-     * @param orderId
+     * @param object
      * @return
      */
     @Override
-    public BaseResult findByOrderId(Long orderId) {
-        if (orderId == null) {
+    public BaseResult findByOrderId(JSONObject object) {
+        OrderExt orderExt = JSONObject.toJavaObject(object, OrderExt.class);
+        if (orderExt.getId() == null) {
             return BaseResult.parameterError();
         }
-        Order order = wxOrderMapper.findByOrderId(orderId);
+        Order order = wxOrderMapper.findByOrderId(orderExt.getId());
         if (order == null) {
             return BaseResult.error("ERROR", "没找到此订单");
         }

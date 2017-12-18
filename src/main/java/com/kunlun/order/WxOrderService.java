@@ -30,10 +30,10 @@ public interface WxOrderService {
     /**
      * 查询我的订单详情
      *
-     * @param orderId
+     * @param object
      * @return
      */
-    BaseResult findByOrderId(Long orderId);
+    BaseResult findByOrderId(JSONObject object);
 
     /**
      * 签收后评价

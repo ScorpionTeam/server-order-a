@@ -85,21 +85,13 @@
     <!--修改订单-->
     <update id="modify" parameterType="com.kunlun.entity.Order">
         UPDATE t_order SET
-        <if test="userId!=null">user_id=#{userId},</if>
-        <if test="orderNo!=null">order_no=#{orderNo},</if>
-        <if test="sellerId!=null">seller_id=#{sellerId},</if>
         <if test="deliveryId!=null">delivery_id=#{deliveryId},</if>
         <if test="orderStatus!=null">order_status=#{orderStatus},</if>
-        <if test="orderType!=null">order_type=#{orderType},</if>
-        <if test="payType!=null">pay_type=#{payType},</if>
         <if test="message!=null">message=#{message},</if>
-        <if test="orderFee!=null">order_fee=#{orderFee},</if>
         <if test="reduceFee!=null">reduce_fee=#{reduceFee},</if>
         <if test="paymentFee!=null">payment_fee=#{paymentFee},</if>
         <if test="goodFee!=null">good_fee=#{goodFee},</if>
         <if test="freightFee!=null">freight_fee=#{freightFee},</if>
-        <if test="createDate!=null">create_date=#{createDate},</if>
-        <if test="payDate!=null">pay_date=#{payDate},</if>
         <if test="deliveryDate!=null">delivery_date=#{deliveryDate},</if>
         <if test="recipients!=null">recipients=#{recipients},</if>
         <if test="phone!=null">phone=#{phone},</if>
@@ -108,11 +100,7 @@
         <if test="area!=null">area=#{area},</if>
         <if test="address!=null">address=#{address},</if>
         <if test="postCode!=null">post_code=#{postCode},</if>
-        <if test="goodName!=null">good_name=#{goodName},</if>
         <if test="count!=null">count=#{count},</if>
-        <if test="prepayId!=null">prepay_id=#{prepayId},</if>
-        <if test="wxOrderNo!=null">wx_order_no=#{wxOrderNo},</if>
-        <if test="goodId!=null">good_id=#{goodId},</if>
         <if test="remark!=null">remark=#{remark},</if>
         <if test="sendGoodId!=null">send_good_id=#{sendGoodId},</if>
         <if test="useTicket!=null">use_ticket=#{useTicket},</if>

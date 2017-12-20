@@ -1,6 +1,8 @@
 package com.kunlun.order;
 
 import com.alibaba.fastjson.JSONObject;
+import com.kunlun.entity.Order;
+import com.kunlun.entity.OrderExt;
 import com.kunlun.result.BaseResult;
 import com.kunlun.result.PageResult;
 import org.springframework.ui.ModelMap;
@@ -19,4 +21,20 @@ public interface SellerOrderService {
      * @return
      */
     PageResult findByCondition(JSONObject object);
+
+    /**
+     * 根据id查询订单详情
+     *
+     * @param id
+     * @return
+     */
+    BaseResult findById(Long id);
+
+    /**
+     * 修改订单
+     *
+     * @param order
+     * @return
+     */
+    BaseResult modify(Order order);
 }

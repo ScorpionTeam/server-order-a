@@ -37,4 +37,15 @@ public interface SellerOrderService {
      * @return
      */
     BaseResult modify(Order order);
+
+    /**
+     * 退款
+     *
+     * @param orderId
+     * @param flag
+     * @param remark
+     * @param refundFee
+     * @return
+     */
+    BaseResult refund(Long orderId, String flag, String remark, Integer refundFee);
 }

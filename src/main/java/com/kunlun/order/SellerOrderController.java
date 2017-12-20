@@ -53,4 +53,19 @@ public class SellerOrderController {
         return sellerOrderService.modify(order);
     }
 
+    /**
+     * 退款
+     *
+     * @param orderId   订单id
+     * @param flag      AGREE 同意  REFUSE  拒绝
+     * @param remark    退款备注
+     * @param refundFee 退款金额
+     * @return
+     */
+    public BaseResult refund(Long orderId, String flag, String remark, Integer refundFee) {
+        return sellerOrderService.refund(orderId, flag, remark, refundFee);
+    }
+
+
+
 }

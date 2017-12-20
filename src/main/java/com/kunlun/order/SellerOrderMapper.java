@@ -39,4 +39,6 @@ public interface SellerOrderMapper {
      * @param order
      */
     int modify(Order order);
+
+    void updateOrderRefundById(Long orderId, String code, String remark, int i);
 }

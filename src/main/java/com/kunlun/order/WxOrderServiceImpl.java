@@ -82,7 +82,7 @@ public class WxOrderServiceImpl implements WxOrderService {
         if (order == null) {
             return BaseResult.error("ERROR", "没找到此订单");
         }
-        return BaseResult.success("成功找到订单");
+        return BaseResult.success(order);
     }
 
     /**

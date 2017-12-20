@@ -1,8 +1,11 @@
 package com.kunlun.order;
 
+import com.alibaba.druid.util.StringUtils;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.kunlun.entity.Order;
+import com.kunlun.entity.OrderExt;
 import com.kunlun.result.BaseResult;
 import com.kunlun.result.PageResult;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
@@ -21,20 +24,24 @@ public class SellerOrderServiceImpl implements SellerOrderService {
     @Autowired
     private SellerOrderMapper sellerOrderMapper;
 
-    @HystrixCommand(fallbackMethod = "findByConditionFallBack")
+    /**
+     * 订单列表
+     *
+     * @param object
+     * @return
+     */
     @Override
-    public ModelMap findByCondition(Integer pageNo, Integer pageSize) {
-        PageHelper.startPage(pageNo, pageSize);
-        Page<Order> page = sellerOrderMapper.findByCondition();
-        ModelMap map = new ModelMap();
-        map.addAttribute(new PageResult<>(page));
-        return map;
-    }
-
-
-    private ModelMap findByConditionFallBack(Integer pageNo,Integer pageSize) {
-        ModelMap map = new ModelMap();
-        map.addAttribute("ERROR","服务宕机，请稍后重试");
-        return map;
+    public PageResult findByCondition(JSONObject object) {
+        OrderExt orderExt = JSONObject.toJavaObject(object, OrderExt.class);
+        PageHelper.startPage(orderExt.getPageNo(), orderExt.getPageSize());
+        //模糊查询
+        if (StringUtils.isEmpty(orderExt.getSearchKey())) {
+            orderExt.setSearchKey(null);
+        }
+        if (!StringUtils.isEmpty(orderExt.getSearchKey())) {
+            orderExt.setSearchKey("%" + orderExt.getSearchKey() + "%");
+        }
+        Page<OrderExt> page = sellerOrderMapper.findByCondition(orderExt);
+        return new PageResult(page);
     }
 }

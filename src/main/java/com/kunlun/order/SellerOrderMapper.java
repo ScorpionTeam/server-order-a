@@ -2,6 +2,7 @@ package com.kunlun.order;
 
 import com.github.pagehelper.Page;
 import com.kunlun.entity.Order;
+import com.kunlun.entity.OrderExt;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,5 +15,11 @@ import java.util.List;
 @Mapper
 public interface SellerOrderMapper {
 
-    Page<Order> findByCondition();
+    /**
+     * 订单列表
+     *
+     * @param orderExt
+     * @return
+     */
+    Page<OrderExt> findByCondition(OrderExt orderExt);
 }

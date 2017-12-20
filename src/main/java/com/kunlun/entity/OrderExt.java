@@ -71,6 +71,21 @@ public class OrderExt extends Order {
     @JSONField(name = "activity_good_id")
     private Long activityGoodId;
 
+    /**
+     * 模糊查询信息
+     */
+    private String searchKey;
+
+    /**
+     * 开始时间
+     */
+    private String startDate;
+
+    /**
+     * 结束时间
+     */
+    private String endDate;
+
     public String getIpAddress() {
         return ipAddress;
     }
@@ -160,6 +175,30 @@ public class OrderExt extends Order {
         this.pageSize = pageSize;
     }
 
+    public String getSearchKey() {
+        return searchKey;
+    }
+
+    public void setSearchKey(String searchKey) {
+        this.searchKey = searchKey;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
     @Override
     public String toString() {
         return "OrderExt{" +
@@ -174,6 +213,9 @@ public class OrderExt extends Order {
                 ", wxCode='" + wxCode + '\'' +
                 ", goodNo='" + goodNo + '\'' +
                 ", activityGoodId=" + activityGoodId +
+                ", searchKey='" + searchKey + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
                 '}';
     }
 }

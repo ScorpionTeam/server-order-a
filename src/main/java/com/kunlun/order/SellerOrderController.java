@@ -1,12 +1,9 @@
 package com.kunlun.order;
 
+import com.alibaba.fastjson.JSONObject;
 import com.kunlun.result.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author by kunlun
@@ -20,8 +17,15 @@ public class SellerOrderController {
     @Autowired
     private SellerOrderService sellerOrderService;
 
-    @GetMapping("/findByCondition/{pageNo}/{pageSize}")
-    public ModelMap findByCondition(@PathVariable Integer pageNo, @PathVariable Integer pageSize) {
-        return sellerOrderService.findByCondition(pageNo,pageSize);
+    /**
+     * 订单列表
+     *
+     * @param object 订单
+     * @return
+     */
+    @PostMapping("/findByCondition")
+    public PageResult findByCondition(@RequestBody JSONObject object) {
+        return sellerOrderService.findByCondition(object);
     }
+
 }

@@ -4,7 +4,34 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kunlun.order.SellerOrderMapper">
 
-    <select id="findByCondition" resultType="com.kunlun.entity.Order">
-        SELECT * FROM t_order
+    <!--订单列表-->
+    <select id="findByCondition" resultType="com.kunlun.entity.OrderExt">
+        SELECT
+        torder.id,
+        torder.seller_id,
+        torder.user_id,
+        torder.order_no,
+        torder.order_status,
+        torder.create_date,
+        torder.good_snapshot_id,
+        torder.pay_date,
+        torder.good_fee,
+        torder.payment_fee
+        FROM t_order torder
+        LEFT JOIN t_good_snapshot tgs ON tgs.id=torder.good_snapshot_id
+        WHERE 1=1
+        AND torder.seller_id=#{sellerId}
+        <if test="searchKey!=null">AND
+            CONCAT_WS('',torder.good_name,torder.post_code,torder.address,torder.phone,torder.recipients) LIKE
+            #{searchKey}
+        </if>
+        <if test="payType!=null and payType!=''">AND torder.pay_type =#{payType}</if>
+        <if test="orderType!=null and orderType!=''">AND torder.order_type =#{orderType}</if>
+        <if test="orderStatus!=null and orderStatus!=''">AND torder.order_status =#{orderStatus}</if>
+        <if test="phone!=null and phone!=''">AND torder.phone =#{phone}</if>
+        <if test="orderNo!=null and orderNo!=''">AND torder.order_no =#{orderNo}</if>
+        <if test="startDate!=null and endDate!=null">AND torder.create_date BETWEEN #{startDate} AND #{endDate}</if>
+        <if test="startDate==null and endDate!=null">AND torder.create_date BETWEEN '1970-01-01' AND #{endDate}</if>
+        <if test="startDate!=null and endDate==null">AND torder.create_date BETWEEN #{startDate} AND now()</if>
     </select>
 </mapper>
